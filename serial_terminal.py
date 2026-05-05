@@ -99,7 +99,7 @@ cmd_lookup = {
         "argc": 0,
         "exp_arg1": None,
         "exp_arg2": None,
-        "desc": "Help and Description"
+        "desc": "Help and Descriptions"
     },
 }
 time_next_command = False
