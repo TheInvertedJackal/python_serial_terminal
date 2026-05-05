@@ -1,0 +1,10 @@
+# This script is run from run1.txt, or it can be run on it's own
+!OPEN COM6
+!SET COM6
+!CRNL TRUE
+!TIME TRUE
+# Run Test 3 times
+!RUN examples/test.txt
+!RUN examples/test.txt
+!RUN examples/test.txt
+!CLOSE COM6

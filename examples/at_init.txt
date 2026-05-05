@@ -1,0 +1,8 @@
+# An example AT connection using this tool
+!OPEN COM6
+!SET COM6
+!CRNL TRUE
+AT
+AT+GMR
+!UPDATE
+!CLOSE COM6

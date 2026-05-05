@@ -1,0 +1,9 @@
+# This script runs the commands as well as those in test.txt when called.
+# In my case this is desting a deep sleep mode for ESP-AT firmware
+AT+CWJAP?
+AT+GSLP=1000
+!SLEEP 4000
+AT+CIPSTART="UDP","10.0.0.2",4545
+AT+CIPSEND=15
+DEEP_SLEEP_TEST
+AT+CIPCLOSE
