@@ -94,6 +94,13 @@ cmd_lookup = {
         "exp_arg2": None,
         "desc": "Appends a \'\\r\\n\' to each line entered that's sent over the serial connection. (Defaults to True)"
     },
+    "!WAIT": {
+        "type": "WAIT",
+        "argc": 0,
+        "exp_arg1": None,
+        "exp_arg2": None,
+        "desc": "Only available while running scripts, pauses script execution until [Enter] is pressed."
+    },
     "!HELP": {
         "type": "HELP",
         "argc": 0,
@@ -104,6 +111,7 @@ cmd_lookup = {
 }
 time_next_command = False
 in_crnl_mode = True
+executing_script = 0
 
 input_txt = "> "
 
@@ -136,6 +144,13 @@ def cmd_print_ser_output():
 # This ends the command on both the terminal, and signals the end of a command
 def print_command_complete():
     print(" ---")
+
+def cmd_wait():
+    global executing_script
+    if executing_script == 0:
+        print_command_info("You cannot pause when in non script settings (Why would want to???)")
+    else:
+        input("[Press Enter to Continue]")
 
 # Run an AT command
 def cmd_run_at_command(command):
@@ -283,6 +298,8 @@ def run_cmd(command):
         cmd_print_ser_output()
     elif command["type"] == "CRNL":
         cmd_toggle_crnl(command["arg1"])
+    elif command["type"] == "WAIT":
+        cmd_wait()
     else:
         print(f"[!] Command Type: {command["type"]} not recognized")
 
@@ -317,9 +334,11 @@ def cmd_parse(raw_line):
 
 # Run script
 def cmd_run_at_script(file_loc):
+    global executing_script
     if not os.path.isfile(file_loc):
         print(f"No such file {file_loc} exists")
         return
+    executing_script += 1
     try:
         with open(file_loc, 'r') as file:
             for line in file:
@@ -343,6 +362,9 @@ def cmd_run_at_script(file_loc):
                     print_command_complete()
     except Exception as e:
         print_command_info(f"Script {file_loc} failed to open.")
+    finally:
+        executing_script -= 1
+
 
 ## MAIN LOOP ETC.
 

@@ -25,6 +25,7 @@ _All commands specific to the terminal and it's state start with a "!"_
  - !SLEEP \<int (ms)> : Sleep the terminal (or more likely script) for n milliseconds.
  - !UPDATE: See what is currently in the receiving buffer, if it has not already been received.
  - !CRNL \<True or False> : Appends a '\r\n' to each line entered that's sent over the serial connection. (Defaults to True)
+ - !WAIT : Only available while running scripts, pauses script execution until [Enter] is pressed.
  - !HELP: Help and Descriptions
 
 _The !HELP command also has this information_
